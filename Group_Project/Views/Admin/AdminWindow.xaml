@@ -1,0 +1,155 @@
+﻿<Window x:Class="Group_Project.Views.Admin.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Group_Project.Views.Admin"
+        xmlns:viewModel="clr-namespace:Group_Project.ViewModels.Admin"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen"
+        Title="AdminWindow" Height="450" Width="800"
+        MinHeight="450" MinWidth="800">
+    <Window.DataContext>
+        <viewModel:AdminWindowVM/>
+    </Window.DataContext>
+    <Window.Resources>
+        <ControlTemplate x:Key="UpperButtons" TargetType="Button">
+            <Grid>
+                <Border x:Name="UpperBorder"  BorderThickness="2" Height="40" Width="40" CornerRadius="5">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#073b4c" Offset="0.0"/>
+                            <GradientStop Color="#118ab2 " Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#fedc97" Offset="0.0"/>
+                            <GradientStop Color="#ffd670 " Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <iconPacks:PackIconMaterial Kind="{TemplateBinding Property=Tag}" Foreground="#073b4c" VerticalAlignment="Center" HorizontalAlignment="Center" Width="10"/>
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="UpperBorder" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#ffb703 " Offset="0.0"/>
+                                <GradientStop Color="#fb8500" Offset="0.6"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ButtonT" TargetType="Button">
+            <Grid>
+                <Border x:Name="BorderButton" Height="40" Width="140" CornerRadius="10" BorderThickness="1.5" Background="#00a8e8">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#fdc500" Offset="0.0"/>
+                            <GradientStop Color="#fb8500" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <iconPacks:PackIconMaterial Kind="{TemplateBinding Property=Tag}" Foreground="#FAFAFA"/>
+                        <TextBlock Margin="10 0 0 0" Foreground="#FAFAFA" Text="{TemplateBinding Property=Content}" FontWeight="Bold"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="BorderButton" Property="Background" Value="#fb8500"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="BorderButton" Property="Background" Value="#fdc500"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Border CornerRadius="10" BorderThickness="5">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#f77f00" Offset="0.0"/>
+                <GradientStop Color="#fcbf49" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#14213d" Offset="0.0"/>
+                <GradientStop Color="#003459" Offset="0.75"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.3*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Margin="0 20 0 0">
+                   
+                    <RadioButton Content="Add User" FontSize="22" Style="{StaticResource SideBar}" Command="{Binding AddUserFormCommand}"
+                              Tag="{x:Static iconPacks:PackIconMaterialKind.AccountPlus}"/>
+                    <RadioButton Content="View Users" FontSize="22" Style="{StaticResource SideBar}" Command="{Binding ViewAllUsersCommand}"
+                              Tag="{x:Static iconPacks:PackIconMaterialKind.AccountEye}"/>
+                    <RadioButton Content="Add Doctor" FontSize="22" Style="{StaticResource SideBar}" Command="{Binding AddDoctorFormCommand}"
+                              Tag="{x:Static iconPacks:PackIconMaterialKind.Doctor}"/>
+                    <RadioButton Content="View Doctors" FontSize="22" Style="{StaticResource SideBar}" Command="{Binding ViewAllDoctorsCommand}"
+                              Tag="{x:Static iconPacks:PackIconMaterialKind.AccountEyeOutline}"/> 
+                    <RadioButton Content="Notifications" FontSize="22" Style="{StaticResource SideBar}"
+                              Tag="{x:Static iconPacks:PackIconMaterialKind.BellRing}"/>
+                    <RadioButton Content="Payments" FontSize="22" Style="{StaticResource SideBar}"
+                              Tag="{x:Static iconPacks:PackIconMaterialKind.Cash}"/>
+
+                </StackPanel>
+                <Button Grid.Row="1" Tag="{x:Static iconPacks:PackIconMaterialKind.Logout}" 
+                        Content="LOG OUT" Template="{StaticResource ButtonT}"
+                        Command="{Binding LogOutCommand}"/>
+            </Grid>
+
+            <Border Grid.Column="1" Background="#14213d">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Tag="{x:Static iconPacks:PackIconMaterialKind.WindowMinimize}" Template="{StaticResource UpperButtons}" Click="Minimize_Clicked" Margin="0 0 10 0"/>
+                            <Button Tag="{x:Static iconPacks:PackIconMaterialKind.WindowMaximize}" Template="{StaticResource UpperButtons}" Click="Maximize_Clicked" Margin="0 0 10 0"/>
+                            <Button Tag="{x:Static iconPacks:PackIconMaterialKind.CloseThick}" Template="{StaticResource UpperButtons}" Click="Close_Clicked" Margin="0 0 20 0"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ContentControl Grid.Row="1" Content="{Binding CurrentView}"/>
+                    </Grid>
+                 
+                    
+                </Grid>
+ 
+
+            </Border> 
+              
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Group_Project.Views.Doctor.Overview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Group_Project.Views.Doctor"
+             xmlns:viewModel="clr-namespace:Group_Project.ViewModels.Doctor"
+             mc:Ignorable="d" 
+             d:DesignHeight="370" d:DesignWidth="610"
+             Background="Transparent">
+    <UserControl.DataContext>
+        <viewModel:OverviewVM/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="0 50 0 10" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1" Height="Auto" Width="Auto" CornerRadius="5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3d5a80" Offset="0.0"/>
+                        <GradientStop Color="#219ebc" Offset="1.1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel VerticalAlignment="Center">
+                    <Label Content="Upcoming Appointments: " HorizontalAlignment="Center" Foreground="LightGray"/>
+                    <Label Content="{Binding UpcomingAppointments}" FontSize="20" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="3" Height="Auto" Width="Auto" CornerRadius="5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3d5a80" Offset="0.0"/>
+                        <GradientStop Color="#219ebc" Offset="1.1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel VerticalAlignment="Center">
+                    <Label Content="Total Appointments: " HorizontalAlignment="Center" Foreground="LightGray"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0 40 0 60">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="1" Height="Auto" Width="Auto" CornerRadius="5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3d5a80" Offset="0.0"/>
+                        <GradientStop Color="#219ebc" Offset="1.1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel VerticalAlignment="Center">
+                    <Label Content="Total Patients: " HorizontalAlignment="Center" Foreground="LightGray"/>
+                    <Label Content="{Binding TotalPatients}" FontSize="20" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="3" Height="Auto" Width="Auto" CornerRadius="5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3d5a80" Offset="0.0"/>
+                        <GradientStop Color="#219ebc" Offset="1.1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel VerticalAlignment="Center">
+                    <Label Content="Total Payment: " HorizontalAlignment="Center"  Foreground="LightGray"/>
+                    <Label Content="{Binding TotalPayment}" FontSize="20" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

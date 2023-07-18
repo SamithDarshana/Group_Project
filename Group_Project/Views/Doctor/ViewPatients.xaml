@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="WpfApp1.Views.Doctor.ViewPatients"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfApp1.Views.Doctor"
+             xmlns:viewModel="clr-namespace:WpfApp1.ViewModels.Doctor"
+             mc:Ignorable="d" 
+             d:DesignHeight="370" d:DesignWidth="610"
+             Background="Transparent">
+    <UserControl.DataContext>
+        <viewModel:ViewPatientsVM/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Patients}" Background="Transparent" CanUserAddRows="False" CanUserDeleteRows="False"
+              AutoGenerateColumns="False" CanUserResizeRows="False" HeadersVisibility="Column" CanUserResizeColumns="True" 
+                  CanUserReorderColumns="False" BorderBrush="Transparent" IsReadOnly="True" SelectionMode="Single" SelectedItem="{Binding SelectedPatient}">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#fcbf49"/>
+                    <Setter Property="Foreground" Value="#003049"/>
+                    <Setter Property="BorderBrush" Value="#118ab2"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#ffb703"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#fb8500"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Background" Value="#14213d "/>
+                    <Setter Property="Foreground" Value="#FAFAFA"/>
+                    <Setter Property="BorderBrush" Value="#14213d "/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#003459"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style TargetType="{x:Type ScrollBar}">
+                    <Style.Triggers>
+                        <Trigger Property="Orientation" Value="Horizontal">
+                            <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}"/>
+                        </Trigger>
+                        <Trigger Property="Orientation" Value="Vertical">
+                            <Setter Property="Template" Value="{StaticResource VerticalScrollBar}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding PatientId}" Width="0.4*"/>
+                <DataGridTextColumn Header="Patient Name" Binding="{Binding PatientName}" Width="*"/>
+                <DataGridTextColumn Header="City" Binding="{Binding City}" Width="0.8*"/>
+                <DataGridTextColumn Header="Disease" Binding="{Binding Disease}" Width="*"/>
+                <DataGridTextColumn Header="Appointment Date" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Appointment Time" Binding="{Binding Time}" Width="0.7*"/>
+                <DataGridTextColumn Header="Payment(Rs.)" Binding="{Binding Payment}" Width="0.7*"/>
+                <DataGridTextColumn Header="Telephone Number" Binding="{Binding PhoneNumber}" Width="*"/>
+                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="0.8*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.8*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="[Select an entry and click to update/delete entry]" FontSize="12"
+                   Foreground="#00a8e8" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Name="UpdateButton" Margin="15 0 0 0" Command="{Binding UpdatePatientCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Border x:Name="ButtonSubmit" Height="30" Width="100" 
+                                        CornerRadius="15" BorderThickness="1.5" Background="#fca311">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#118ab2" Offset="0.0"/>
+                                            <GradientStop Color="#06d6a0 " Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FAFAFA" Text="Update" FontWeight="Bold" FontSize="14"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonSubmit" Property="Background" Value="#0077b6"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="DeleteButton" Margin="20 0 20 0" Command="{Binding DeletePatientCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Border x:Name="ButtonSubmit" Height="30" Width="100"
+                                        CornerRadius="15" BorderThickness="1.5" Background="#fca311">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#118ab2" Offset="0.0"/>
+                                            <GradientStop Color="#06d6a0 " Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FAFAFA" Text="Delete" FontWeight="Bold" FontSize="14"/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonSubmit" Property="Background" Value="#0077b6"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="Group_Project.Views.Receptionist.AddPatient"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Group_Project.Views.Receptionist"
+             xmlns:viewModelReceptionist="clr-namespace:Group_Project.ViewModels.Receptionist"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="610"
+             Background="Transparent">
+    <UserControl.DataContext>
+        <viewModelReceptionist:AddPatientVM/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#FAFAFA"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#FAFAFA"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="CaretBrush" Value="#FAFAFA"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#fca311"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Margin="105 0 105 30">
+            <Label Content="Patient Name:"/>
+            <TextBox Name="PatientNameTxtBox" Text="{Binding PatientName}"/>
+            <Grid Margin="0 5 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Gender: "/>
+                <Label Grid.Column="1" Content="Patient ID: " Margin="15 0 0 0"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" Name="GenderBox" FontSize="10" SelectedValue="{Binding Gender}" SelectedValuePath="Tag"
+                          Margin="0 0 20 0">
+                    <ComboBoxItem Tag="Male" Content="Male" IsSelected="True"/>
+                    <ComboBoxItem Tag="Female" Content="Female"/>
+                </ComboBox>
+                <TextBox Grid.Column="1" Name="PatientIDTxtBox" Margin="15 0 0 0" Text="{Binding PatientId}"/>
+            </Grid>
+            <Label Margin="0 5 0 0" Content="Disease: "/>
+            <TextBox Name="DiseaseTxtBox" Text="{Binding Disease}"/>
+            <Grid Margin="0 5 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Doctor: "/>
+                <Label Grid.Column="1" Content="Payment(Rupees): " Margin="15 0 0 0"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" Name="DoctorBox" FontSize="10" ItemsSource="{Binding Doctors}"  SelectedItem="{Binding Doctor}"
+                          SelectedValue="{Binding Doctor.DoctorID}" SelectedValuePath="DoctorID" DisplayMemberPath="Name" Margin="0 0 20 0"/>
+                <TextBox Grid.Column="1" Name="PaymentTxtBox" Margin="15 0 0 0" Text="{Binding Payment}"/>
+            </Grid>
+            <Grid Margin="0 5 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="City: "/>
+                <Label Grid.Column="1" Content="Phone Number: " Margin="15 0 0 0"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="CityTxtBox" Margin="0 0 20 0" Text="{Binding City}"/>
+                <TextBox Grid.Column="1" Name="PhoneNoBox" Margin="15 0 0 0" Text="{Binding PhoneNumber}"/>
+            </Grid>
+            <Grid Margin="0 5 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Appointment Date: "/>
+                <Label Grid.Column="1" Content="Appointment Time: " Margin="15 0 0 0"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <DatePicker Grid.Column="0" Name="AppDatePicker" Margin="0 0 20 0" IsTodayHighlighted="True" SelectedDate="{Binding Date, FallbackValue={x:Static sys:DateTime.Now}}">
+                    <DatePicker.BlackoutDates>
+                        <CalendarDateRange Start="01/01/0001" End="12/31/2022"/>
+                    </DatePicker.BlackoutDates>
+                </DatePicker>
+                <TextBox Grid.Column="1" Name="AppTimeTxtBox" Margin="15 0 0 0" Text="{Binding Time}"/>
+            </Grid>
+            <Button Name="PatientSubmitButton" Margin="0 15 0 0" 
+                    Command="{Binding InsertPatientCommand}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Border x:Name="ButtonSubmit" Height="30" Width="90" 
+                                    CornerRadius="15" BorderThickness="1.5" 
+                                    Background="#fca311">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#118ab2" Offset="0.0"/>
+                                        <GradientStop Color="#06d6a0 " Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                           Foreground="#FAFAFA" Text="Submit" FontWeight="Bold" FontSize="14"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonSubmit" Property="Background"
+                                        Value="#0077b6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        <!--<Label Content="City: "/>
+        <TextBox Name="CityTxtBox" Width="180"/>-->
+
+    </Grid>
+</UserControl>
